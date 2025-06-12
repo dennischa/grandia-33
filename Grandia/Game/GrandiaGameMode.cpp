@@ -2,11 +2,11 @@
 
 #include "GrandiaGameMode.h"
 
-#include "Player/GrandiaPlayerController.h"
+#include "Player/GRPlayerController.h"
 #include "UObject/ConstructorHelpers.h"
 
 AGrandiaGameMode::AGrandiaGameMode()
 {
 	// use our custom PlayerController class
-	PlayerControllerClass = AGrandiaPlayerController::StaticClass();
+	PlayerControllerClass = AGRPlayerController::StaticClass();
 }

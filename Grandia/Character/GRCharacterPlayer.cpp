@@ -19,8 +19,7 @@ AGRCharacterPlayer::AGRCharacterPlayer()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
-
-
+	
 	CameraBoom->bEnableCameraLag = true;               // 카메라 부드럽게 이동
 	CameraBoom->CameraLagSpeed = 5.0f;          
 }

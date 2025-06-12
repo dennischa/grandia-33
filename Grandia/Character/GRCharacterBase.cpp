@@ -2,6 +2,8 @@
 
 
 #include "Character/GRCharacterBase.h"
+
+#include "AI/GRAIController.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Camera/CameraComponent.h"
 #include "Components/DecalComponent.h"
@@ -11,6 +13,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
+#include "Stat/GRStatComponent.h"
 
 // Sets default values
 AGRCharacterBase::AGRCharacterBase()
@@ -37,12 +40,25 @@ AGRCharacterBase::AGRCharacterBase()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+
+	// Stat
+	Stat = CreateDefaultSubobject<UGRStatComponent>(TEXT("Stat"));
+
+	// AI
+	AIControllerClass = AGRAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 void AGRCharacterBase::Attack()
 {
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	AnimInstance->Montage_Play(AttackMontage);
+}
+
+float AGRCharacterBase::GetTurnSpeed() const
+{
+	return Stat->GetTurnSpeed();
 }
 
 
