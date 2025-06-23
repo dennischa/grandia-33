@@ -21,15 +21,14 @@ bool UBTDecorator_CheckActionType::CalculateRawConditionValue(UBehaviorTreeCompo
 	{
 		UBlackboardComponent* BB = OwnerComp.GetBlackboardComponent();
 
-		// 타겟 임시
-		BB->SetValueAsObject(BBKEY_TARGET, Request->GetTarget());
+		Request->SetBlackBoard(BB);
 	}
+	
 	return Request != nullptr ? Request->GetActionType() == DesiredAction : false;
 }  
 
 void UBTDecorator_CheckActionType::OnNodeDeactivation(FBehaviorTreeSearchData& SearchData, EBTNodeResult::Type NodeResult)
 {
-	UE_LOG(LogTemp, Log, TEXT("###### UBTDecorator_CheckActionType::OnNodeDeactivation"));
 	Super::OnNodeDeactivation(SearchData, NodeResult);
 
 	UBlackboardComponent* BB = SearchData.OwnerComp.GetBlackboardComponent();
@@ -37,7 +36,7 @@ void UBTDecorator_CheckActionType::OnNodeDeactivation(FBehaviorTreeSearchData& S
 
 	if (Request)
 	{
-		Request->OnBattleActionFinished.ExecuteIfBound(NodeResult);
+		Request->ExecuteOnBattleActionFinished(NodeResult);
 		BB->ClearValue(BBKEY_ACTION_REQUEST);
 	}
 }

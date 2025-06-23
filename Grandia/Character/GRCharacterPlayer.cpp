@@ -13,7 +13,7 @@ AGRCharacterPlayer::AGRCharacterPlayer()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->TargetArmLength = 400.0f;
-	CameraBoom->bUsePawnControlRotation = true;
+	//CameraBoom->bUsePawnControlRotation = true;
 	CameraBoom->bDoCollisionTest = false;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));

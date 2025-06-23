@@ -5,11 +5,7 @@
 #include "CoreMinimal.h"
 #include "GRBattleAction.h"
 #include "BehaviorTree/BehaviorTreeTypes.h"
-#include "LevelInstance/LevelInstanceTypes.h"
-#include "UObject/NoExportTypes.h"
 #include "GRBattleActionRequest.generated.h"
-
-DECLARE_DELEGATE_OneParam(FOnBattleActionFinished, EBTNodeResult::Type);
 
 /**
  * 
@@ -22,23 +18,21 @@ class UGRBattleActionRequest : public UObject
 public:
 	FORCEINLINE EBattleActionType GetActionType() const { return ActionType; }
 	FORCEINLINE AActor* GetTarget() const { return Target.Get(); }
-	
-	FOnBattleActionFinished OnBattleActionFinished;
-	EBattleActionType ActionType;
 
+	void ExecuteOnBattleActionFinished(EBTNodeResult::Type Result);
+
+	virtual void SetBlackBoard(UBlackboardComponent* BB);
+	
 protected:
+	virtual void Initialize(bool InShouldMoveToTarget, AActor* InTarget, const FOnBattleActionFinished& InOnBattleActionFinished);
 	
 	UPROPERTY()
 	TWeakObjectPtr<AActor> Target;
-};
 
-UCLASS()
-class UGRAttackBattleActionRequest : public UGRBattleActionRequest
-{
-	GENERATED_BODY()
+	FOnBattleActionFinished OnBattleActionFinished;
 
-public:
-	void Initialize(AActor* InTarget, const FOnBattleActionFinished& InOnBattleActionFinished);
+	EBattleActionType ActionType;
 
+	bool ShouldMoveToTarget;
 };
 

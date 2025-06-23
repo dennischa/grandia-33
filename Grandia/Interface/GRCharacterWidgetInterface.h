@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "GRCharacterStatInterface.generated.h"
+#include "GRCharacterWidgetInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UGRCharacterStatInterface : public UInterface
+class UGRCharacterWidgetInterface : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,13 +16,11 @@ class UGRCharacterStatInterface : public UInterface
 /**
  * 
  */
-class GRANDIA_API IGRCharacterStatInterface
+class GRANDIA_API IGRCharacterWidgetInterface
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual float GetAttackRange() const = 0;
-	virtual float GetAttackSpeed() const = 0;
-	virtual int32 GetCurrentHp() const = 0;
+	virtual void SetUpHpBarWidget(class UGRUserWidget* InUserWidget) = 0;
 };

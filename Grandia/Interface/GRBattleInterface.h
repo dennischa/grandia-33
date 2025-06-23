@@ -4,25 +4,27 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "GRCharacterStatInterface.generated.h"
+#include "GRBattleInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UGRCharacterStatInterface : public UInterface
+class UGRBattleInterface : public UInterface
 {
 	GENERATED_BODY()
 };
 
+DECLARE_DELEGATE(FOnAttackFinished)
+
 /**
  * 
  */
-class GRANDIA_API IGRCharacterStatInterface
+class GRANDIA_API IGRBattleInterface
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual float GetAttackRange() const = 0;
-	virtual float GetAttackSpeed() const = 0;
-	virtual int32 GetCurrentHp() const = 0;
+	
+	virtual void SetAttackDelegate(const FOnAttackFinished& InOnAttackFinished) = 0;
+	virtual void Attack(APawn* Target) = 0;
 };

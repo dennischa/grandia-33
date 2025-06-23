@@ -16,8 +16,8 @@ class GRANDIA_API AGRPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
-	FORCEINLINE void SetEnemy(AGRCharacterBase* InEnemy) { EnemyCharacter = InEnemy;}
-	FORCEINLINE void SetPlayer(AGRCharacterBase* InEnemy) { PlayerCharacter = InEnemy;}
+	 virtual void SetEnemy(AGRCharacterBase* InEnemy) { EnemyCharacter = InEnemy;}
+	 virtual void SetPlayer(AGRCharacterBase* InEnemy) { PlayerCharacter = InEnemy;}
 
 protected:
 	

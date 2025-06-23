@@ -4,6 +4,7 @@
 #include "GRPlayerDevelopController.h"
 
 #include "AI/GRAIController.h"
+#include "Battle/GRAttackBattleActionRequest.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "UI/GRDevelopHUDWidget.h"
@@ -30,12 +31,14 @@ void AGRPlayerDevelopController::BeginPlay()
 
 		if (DevelopHUDWidget)
 		{
-			DevelopHUDWidget->AddToViewport();
-
 			if (DevelopHUDWidget->Button1)
 			{
 				DevelopHUDWidget->Button1->OnClicked.AddDynamic(this, &AGRPlayerDevelopController::OnButton1Clicked);
 			}
+			
+			DevelopHUDWidget->AddToViewport();
+
+			DevelopHUDWidget->SetPlayer1(PlayerCharacter.Get());
 		}
 	}
 
@@ -54,7 +57,7 @@ void AGRPlayerDevelopController::OnButton1Clicked()
 	if (auto* AIController = Cast<AGRAIController>(PlayerCharacter->GetController()))
 	{
 		UGRAttackBattleActionRequest* Request = NewObject<UGRAttackBattleActionRequest>(this);
-		Request->Initialize(EnemyCharacter.Get(), FOnBattleActionFinished::CreateUObject(this, &AGRPlayerDevelopController::OnBattleActionFinished));
+		Request->Initialize(true, EnemyCharacter.Get(), FOnBattleActionFinished::CreateUObject(this, &AGRPlayerDevelopController::OnBattleActionFinished));
 
 		AIController->SetBattleActionRequest(Request);
 	}
@@ -64,5 +67,4 @@ void AGRPlayerDevelopController::OnBattleActionFinished(EBTNodeResult::Type Resu
 {
 	UE_LOG(LogTemp, Log, TEXT("Battle Action Requeset Finished. Result: %d"), (int)Result);
 }
-
 

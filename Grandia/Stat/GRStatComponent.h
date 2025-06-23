@@ -4,11 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameData/GRCharacterStat.h"
+#include "Interface/GRCharacterStatInterface.h"
 #include "GRStatComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnHpZeroDelegate);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnHpChangedDelegate, int32);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnStatChangedDelegate, const FGRCharacterStat&);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class GRANDIA_API UGRStatComponent : public UActorComponent
+class GRANDIA_API UGRStatComponent : public UActorComponent, public IGRCharacterStatInterface
 {
 	GENERATED_BODY()
 
@@ -16,17 +21,30 @@ public:
 	// Sets default values for this component's properties
 	UGRStatComponent();
 
-	FORCEINLINE float GetTurnSpeed() const { return TurnSpeed; }
+	FOnHpZeroDelegate OnHpZero;
+	FOnHpChangedDelegate OnHpChanged;
+	FOnStatChangedDelegate OnStatChanged;
+
+	int32 ApplyDamage(int32 InDamage);
+
+	FORCEINLINE const FGRCharacterStat& GetCharacterStat() const { return Stat; }
+	
+	virtual float GetAttackRange() const override { return Stat.AttackRange; }
+	virtual float GetAttackSpeed() const override { return Stat.AttackSpeed; }
+	virtual int32 GetCurrentHp() const override { return CurrentHp;}
 
 protected:
-	// Called when the game starts
+	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;
 
-	float TurnSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stat)
+	EGRCharacterId Id;
+	
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = "true"))
+	FGRCharacterStat Stat;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
+	int32 CurrentHp;
 
-		
+	void SetHp(int32 NewHp);
 };

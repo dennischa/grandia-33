@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
 
 UENUM(BlueprintType)
 enum class EBattleActionType : uint8
@@ -10,3 +11,5 @@ enum class EBattleActionType : uint8
 	Skill,
 	Item
 };
+
+DECLARE_DELEGATE_OneParam(FOnBattleActionFinished, EBTNodeResult::Type);
