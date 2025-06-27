@@ -4,7 +4,6 @@
 #include "GRPlayerDevelopController.h"
 
 #include "AI/GRAIController.h"
-#include "Battle/GRAttackBattleActionRequest.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "UI/GRDevelopHUDWidget.h"
@@ -31,14 +30,15 @@ void AGRPlayerDevelopController::BeginPlay()
 
 		if (DevelopHUDWidget)
 		{
+			DevelopHUDWidget->AddToViewport();
+
 			if (DevelopHUDWidget->Button1)
 			{
 				DevelopHUDWidget->Button1->OnClicked.AddDynamic(this, &AGRPlayerDevelopController::OnButton1Clicked);
 			}
 			
-			DevelopHUDWidget->AddToViewport();
-
 			DevelopHUDWidget->SetPlayer1(PlayerCharacter.Get());
+			DevelopHUDWidget->SetEnemy(EnemyCharacter.Get());
 		}
 	}
 

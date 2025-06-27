@@ -30,15 +30,20 @@ protected:
 	TObjectPtr<class UAnimMontage> AttackMontage;
 
 	TWeakInterfacePtr<class IGRCharacterStatInterface> Stat;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = BattleAction)
+	TObjectPtr<class UGRBattleActionRequest> CurrentRequest;
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	virtual void SetBattleActionRequest(class UGRBattleActionRequest* InRequest) override { CurrentRequest = InRequest; }
 
 	// Attack Section
 public:
 	virtual void SetAttackDelegate(const FOnAttackFinished& InOnAttackFinished) override { OnAttackFinished = InOnAttackFinished; }
 	virtual void Attack(APawn* Target) override;
+	virtual void OnAttackTarget() override;
 
 	void AttackEnd(UAnimMontage* TargetMontage, bool IsProperlyEnded);
 

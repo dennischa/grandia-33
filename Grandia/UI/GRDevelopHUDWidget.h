@@ -19,9 +19,19 @@ public:
 	TObjectPtr<class UButton> Button1;
 	
 	void SetPlayer1(AActor* NewPlayer);
+	void SetEnemy(AActor* InEnemy);
 
 protected:
 	virtual void NativeConstruct() override;
+
+	// Enemy Section
+	UPROPERTY()
+	TWeakObjectPtr<AActor> Enemy;
+	
+	UPROPERTY()
+	TObjectPtr<class UGRHpBarWidget> EnemyHpBar;
+
+	// Player Section
 	
 	UPROPERTY()
 	TWeakObjectPtr<AActor> Player1;

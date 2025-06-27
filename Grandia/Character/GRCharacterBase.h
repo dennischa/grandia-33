@@ -36,12 +36,17 @@ protected:
 	
 	virtual float GetAttackRange() const override { return GetStat()->GetAttackRange(); }
 	virtual float GetAttackSpeed() const override { return GetStat()->GetAttackSpeed(); }
+	virtual int32 GetAttackDamage() const override { return GetStat()->GetAttackDamage(); }
+	
 	virtual int32 GetCurrentHp() const override { return GetStat()->GetCurrentHp(); }
 
 	// Battle Secion
 public:
 	virtual void SetAttackDelegate(const FOnAttackFinished& InOnAttackFinished) override { GetBattle()->SetAttackDelegate(InOnAttackFinished); }
 	virtual void Attack(APawn* Target) override { GetBattle()->Attack(Target); }
+	virtual void SetBattleActionRequest(UGRBattleActionRequest* Request) override { GetBattle()->SetBattleActionRequest(Request); }
+	virtual void OnAttackTarget() override { GetBattle()->OnAttackTarget(); }
+
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Battle, Meta = (AllowPrivateAccess = "true"))
@@ -49,6 +54,10 @@ protected:
 
 	virtual IGRBattleInterface* GetBattle() { return Battle;}
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
+
+	// UI Section
 public:
 	virtual void SetUpHpBarWidget(UGRUserWidget* InUserWidget) override;
 };

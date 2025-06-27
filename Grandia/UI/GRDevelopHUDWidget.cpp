@@ -20,9 +20,24 @@ void UGRDevelopHUDWidget:: SetPlayer1(AActor* NewPlayer)
 	}
 }
 
+void UGRDevelopHUDWidget::SetEnemy(AActor* InEnemy)
+{
+	Enemy = InEnemy;
+
+	EnemyHpBar.Get()->SetOwingActor(Enemy.Get());
+
+	auto CharacterWidget = Cast<IGRCharacterWidgetInterface>(Enemy.Get());
+	if (CharacterWidget)
+	{
+		CharacterWidget->SetUpHpBarWidget(EnemyHpBar.Get());
+	}
+}
+
 void UGRDevelopHUDWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	EnemyHpBar = Cast<UGRHpBarWidget>(GetWidgetFromName("Enemy_HpBar"));
 	
 	Button1 = Cast<UButton>(GetWidgetFromName("Button_1"));
 	ensure(Button1);

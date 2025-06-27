@@ -31,6 +31,7 @@ public:
 	
 	virtual float GetAttackRange() const override { return Stat.AttackRange; }
 	virtual float GetAttackSpeed() const override { return Stat.AttackSpeed; }
+	virtual int32 GetAttackDamage() const override{ return Stat.Attack; }
 	virtual int32 GetCurrentHp() const override { return CurrentHp;}
 
 protected:

@@ -24,5 +24,6 @@ class GRANDIA_API IGRCharacterStatInterface
 public:
 	virtual float GetAttackRange() const = 0;
 	virtual float GetAttackSpeed() const = 0;
+	virtual int32 GetAttackDamage() const = 0;
 	virtual int32 GetCurrentHp() const = 0;
 };

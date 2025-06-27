@@ -58,6 +58,16 @@ void AGRCharacterBase::Attack()
 	AnimInstance->Montage_Play(AttackMontage);
 }
 
+float AGRCharacterBase::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator, AActor* DamageCauser)
+{
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	Stat->ApplyDamage(DamageAmount);
+	
+	return DamageAmount;
+}
+
 void AGRCharacterBase::SetUpHpBarWidget(UGRUserWidget* InUserWidget)
 {
 	UGRHpBarWidget* HpBarWidget = Cast<UGRHpBarWidget>(InUserWidget);

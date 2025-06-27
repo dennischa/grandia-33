@@ -3,6 +3,7 @@
 
 #include "Battle/GRBattleComponent.h"
 
+#include "Engine/DamageEvents.h"
 #include "GameFramework/Character.h"
 #include "Interface/GRCharacterStatInterface.h"
 #include "Widgets/Text/ISlateEditableTextWidget.h"
@@ -56,6 +57,16 @@ void UGRBattleComponent::Attack(APawn* Target)
 	AnimInstance.Get()->Montage_SetEndDelegate(EndDelegate, AttackMontage);
 }
 
+void UGRBattleComponent::OnAttackTarget()
+{
+	auto AttackRequest = Cast<UGRAttackBattleActionRequest>(CurrentRequest);
+
+	if (AttackRequest)
+	{
+		FDamageEvent DamageEvent;
+		AttackRequest->GetTarget()->TakeDamage(Stat.Get()->GetAttackDamage(), DamageEvent, GetOwner()->GetInstigatorController(), GetOwner());
+	}
+}
 
 void UGRBattleComponent::AttackEnd(UAnimMontage* TargetMontage, bool IsProperlyEnded)
 {

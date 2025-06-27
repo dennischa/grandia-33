@@ -8,6 +8,7 @@
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Interface/GRBattleInterface.h"
 
 AGRAIController::AGRAIController()
 {
@@ -26,6 +27,14 @@ AGRAIController::AGRAIController()
 
 void AGRAIController::SetBattleActionRequest(UGRBattleActionRequest* Request)
 {
+	// Battle
+	auto Battle = Cast<IGRBattleInterface>(GetPawn());
+	if (Battle)
+	{
+		Battle->SetBattleActionRequest(Request);
+	}
+	
+	// Request
 	CurrentRequest = Request;
 	
 	if (UBlackboardComponent* BlackboardPtr = Blackboard.Get())
