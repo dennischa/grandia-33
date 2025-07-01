@@ -30,5 +30,8 @@ protected:
 	void OnButton1Clicked();
 
 	UFUNCTION()
+	void OnButton2Clicked();
+
+	UFUNCTION()
 	void OnBattleActionFinished(EBTNodeResult::Type Result);
 };

@@ -24,11 +24,12 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	TWeakObjectPtr<class UAnimInstance> AnimInstance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	TObjectPtr<class UAnimMontage> AttackMontage;
-
+	
 	TWeakInterfacePtr<class IGRCharacterStatInterface> Stat;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = BattleAction)

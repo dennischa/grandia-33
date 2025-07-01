@@ -23,6 +23,8 @@ UGRGameSingleton::UGRGameSingleton()
 			}
 		}
 	}
+
+	
 }
 
 UGRGameSingleton& UGRGameSingleton::Get()

@@ -6,6 +6,8 @@
 #include "AI/GRAIController.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Game/GrandiaGameMode.h"
+#include "Kismet/GameplayStatics.h"
 #include "UI/GRDevelopHUDWidget.h"
 
 AGRPlayerDevelopController::AGRPlayerDevelopController()
@@ -32,13 +34,20 @@ void AGRPlayerDevelopController::BeginPlay()
 		{
 			DevelopHUDWidget->AddToViewport();
 
-			if (DevelopHUDWidget->Button1)
-			{
-				DevelopHUDWidget->Button1->OnClicked.AddDynamic(this, &AGRPlayerDevelopController::OnButton1Clicked);
-			}
+			DevelopHUDWidget->Button1->OnClicked.AddDynamic(this, &AGRPlayerDevelopController::OnButton1Clicked);
+			DevelopHUDWidget->Button2->OnClicked.AddDynamic(this, &AGRPlayerDevelopController::OnButton2Clicked);
 			
 			DevelopHUDWidget->SetPlayer1(PlayerCharacter.Get());
 			DevelopHUDWidget->SetEnemy(EnemyCharacter.Get());
+
+			auto* GameMode = Cast<AGrandiaGameMode>(UGameplayStatics::GetGameMode(this));
+
+			if (GameMode && GameMode->TurnManager)
+			{
+				GameMode->TurnManager->OnTurnListUpdated.AddUObject(DevelopHUDWidget, &UGRDevelopHUDWidget::OnTurnListUpdated);
+				GameMode->TurnManager->RefreshTurnList();
+			}
+			
 		}
 	}
 
@@ -54,12 +63,29 @@ void AGRPlayerDevelopController::BeginPlay()
 
 void AGRPlayerDevelopController::OnButton1Clicked()
 {
-	if (auto* AIController = Cast<AGRAIController>(PlayerCharacter->GetController()))
+	/*if (auto* AIController = Cast<AGRAIController>(PlayerCharacter->GetController()))
 	{
 		UGRAttackBattleActionRequest* Request = NewObject<UGRAttackBattleActionRequest>(this);
 		Request->Initialize(true, EnemyCharacter.Get(), FOnBattleActionFinished::CreateUObject(this, &AGRPlayerDevelopController::OnBattleActionFinished));
 
 		AIController->SetBattleActionRequest(Request);
+	}*/
+
+	auto* GameMode = Cast<AGrandiaGameMode>(UGameplayStatics::GetGameMode(this));
+
+	if (GameMode && GameMode->TurnManager)
+	{
+		GameMode->TurnManager->AdvanceTurn();
+	}
+}
+
+void AGRPlayerDevelopController::OnButton2Clicked()
+{
+	auto* GameMode = Cast<AGrandiaGameMode>(UGameplayStatics::GetGameMode(this));
+
+	if (GameMode && GameMode->TurnManager)
+	{
+		GameMode->TurnManager->RemoveUnit(123);
 	}
 }
 

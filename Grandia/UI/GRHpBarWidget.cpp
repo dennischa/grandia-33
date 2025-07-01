@@ -19,7 +19,7 @@ void UGRHpBarWidget::NativeConstruct()
 	check(HpTxt);
 
 	IGRCharacterWidgetInterface* CharacterWidget = Cast<IGRCharacterWidgetInterface>(OwningActor);
-	ensure(CharacterWidget);
+	//ensure(CharacterWidget);
 
 	if (CharacterWidget)
 	{

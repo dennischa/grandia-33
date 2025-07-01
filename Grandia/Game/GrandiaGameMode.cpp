@@ -10,3 +10,10 @@ AGrandiaGameMode::AGrandiaGameMode()
 	// use our custom PlayerController class
 	PlayerControllerClass = AGRPlayerController::StaticClass();
 }
+
+void AGrandiaGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	TurnManager = NewObject<UGRTurnManager>(this, TEXT("TurnManager"));
+}

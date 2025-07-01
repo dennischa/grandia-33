@@ -47,7 +47,7 @@ void UGRBattleComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 
 	// ...
 }
-
+ 
 void UGRBattleComponent::Attack(APawn* Target)
 {
 	AnimInstance.Get()->Montage_Play(AttackMontage, Stat.Get()->GetAttackSpeed());

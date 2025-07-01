@@ -16,5 +16,7 @@ class GRANDIA_API AGrandiaDevelopGameMode : public AGrandiaGameMode
 
 public:
 	virtual void BeginPlay() override;
-	
+
+	// Temp
+	TObjectPtr<class UGRTurnInfo> PlayerTurn;
 };
