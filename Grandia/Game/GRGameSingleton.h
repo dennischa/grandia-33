@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameData/GRCharacterStat.h"
 #include "UObject/NoExportTypes.h"
+#include "Util/GRAssetManager.h"
 #include "GRGameSingleton.generated.h"
 
 /**
@@ -23,6 +24,8 @@ public:
 public:
 	FORCEINLINE FGRCharacterStat* GetCharacterStat(const EGRCharacterId Id) { return CharacterStatMap.Find(Id); }
 
+	UPROPERTY()
+	TObjectPtr<UGRAssetManager> AssetManager;
 private:
 	TMap<EGRCharacterId, FGRCharacterStat> CharacterStatMap;
 };

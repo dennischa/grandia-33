@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameData/GRCharacterStat.h"
 #include "GameData/GRTurnInfo.h"
-#include "GRTurnManager.generated.h"
+#include "GRTurnSystem.generated.h"
 
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnTurnListUpdated, const TArray<UGRTurnInfo*>&);
@@ -15,7 +15,7 @@ DECLARE_MULTICAST_DELEGATE_OneParam(FOnTurnBegin, const int32);
  * 
  */
 UCLASS(Blueprintable)
-class GRANDIA_API UGRTurnManager : public UObject
+class GRANDIA_API UGRTurnSystem : public UObject
 {
 	GENERATED_BODY()
 

@@ -15,5 +15,5 @@ void AGrandiaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	TurnManager = NewObject<UGRTurnManager>(this, TEXT("TurnManager"));
+	TurnSystem = NewObject<UGRTurnSystem>(this);
 }

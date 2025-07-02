@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Game/GRTurnManager.h"
+#include "Game/GRTurnSystem.h"
 
-void UGRTurnManager::Initialize(const TArray<UGRTurnInfo*>& InInfos)
+void UGRTurnSystem::Initialize(const TArray<UGRTurnInfo*>& InInfos)
 {
 	Orders.Empty();
 	RemovedUnitIds.Empty();
@@ -21,7 +21,7 @@ void UGRTurnManager::Initialize(const TArray<UGRTurnInfo*>& InInfos)
 	RefreshTurnList();
 }
 
-void UGRTurnManager::AdvanceTurn()
+void UGRTurnSystem::AdvanceTurn()
 {
 	int Count = 0;
 	const int32 MaxCount = Orders.Num();
@@ -41,7 +41,7 @@ void UGRTurnManager::AdvanceTurn()
 	RefreshTurnList();
 }
 
-void UGRTurnManager::RefreshTurnList()
+void UGRTurnSystem::RefreshTurnList()
 {
 	TArray<UGRTurnInfo*> TurnList;
 	const int32 MaxCount = Orders.Num();
@@ -72,7 +72,7 @@ void UGRTurnManager::RefreshTurnList()
 }
 
 // 캐릭터 사망 시, 턴 제거
-void UGRTurnManager::RemoveUnit(int32 UnitId)
+void UGRTurnSystem::RemoveUnit(int32 UnitId)
 {
 	RemovedUnitIds.Add(UnitId);
 

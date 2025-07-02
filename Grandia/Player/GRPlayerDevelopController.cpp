@@ -42,10 +42,10 @@ void AGRPlayerDevelopController::BeginPlay()
 
 			auto* GameMode = Cast<AGrandiaGameMode>(UGameplayStatics::GetGameMode(this));
 
-			if (GameMode && GameMode->TurnManager)
+			if (GameMode && GameMode->TurnSystem)
 			{
-				GameMode->TurnManager->OnTurnListUpdated.AddUObject(DevelopHUDWidget, &UGRDevelopHUDWidget::OnTurnListUpdated);
-				GameMode->TurnManager->RefreshTurnList();
+				GameMode->TurnSystem->OnTurnListUpdated.AddUObject(DevelopHUDWidget, &UGRDevelopHUDWidget::OnTurnListUpdated);
+				GameMode->TurnSystem->RefreshTurnList();
 			}
 			
 		}
@@ -73,9 +73,9 @@ void AGRPlayerDevelopController::OnButton1Clicked()
 
 	auto* GameMode = Cast<AGrandiaGameMode>(UGameplayStatics::GetGameMode(this));
 
-	if (GameMode && GameMode->TurnManager)
+	if (GameMode && GameMode->TurnSystem)
 	{
-		GameMode->TurnManager->AdvanceTurn();
+		GameMode->TurnSystem->AdvanceTurn();
 	}
 }
 
@@ -83,9 +83,9 @@ void AGRPlayerDevelopController::OnButton2Clicked()
 {
 	auto* GameMode = Cast<AGrandiaGameMode>(UGameplayStatics::GetGameMode(this));
 
-	if (GameMode && GameMode->TurnManager)
+	if (GameMode && GameMode->TurnSystem)
 	{
-		GameMode->TurnManager->RemoveUnit(123);
+		GameMode->TurnSystem->RemoveUnit(123);
 	}
 }
 

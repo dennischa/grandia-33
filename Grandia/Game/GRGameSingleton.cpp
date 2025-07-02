@@ -24,7 +24,8 @@ UGRGameSingleton::UGRGameSingleton()
 		}
 	}
 
-	
+	// Asset Manager
+	AssetManager = NewObject<UGRAssetManager>();
 }
 
 UGRGameSingleton& UGRGameSingleton::Get()

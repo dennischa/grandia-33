@@ -7,6 +7,7 @@
 #include "Components/Image.h"
 #include "Data/GRTurnCardData.h"
 #include "GameData/GRTurnInfo.h"
+#include "Util/GRAssetManager.h"
 
 void UGRTurnCardWidget::NativeConstruct()
 {
@@ -32,14 +33,30 @@ void UGRTurnCardWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 		SetVisibility(ESlateVisibility::Collapsed);
 		return;
 	}
+
+	const float Flip = Data->bIsPlayer ? 1.0f : -1.0f;
+	SetRenderScale(FVector2D(Flip, 1.0f));
 	
 	if (TeamColorBorder)
 	{
 		const FLinearColor TeamColor = Data->bIsPlayer
-			? FLinearColor::Green
-			: FLinearColor::Red;
+			? FLinearColor::Green : FLinearColor::Red;
 
 		TeamColorBorder->SetBrushColor(TeamColor);
+	}
+
+	if (HeadImage)
+	{
+		UTexture2D* Portrait = UGRAssetManager::Get()->GetPortraitById(Data->CharacterId);
+		if (Portrait)
+		{
+			HeadImage->SetBrushFromTexture(Portrait);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Portrait not found for CharacterId: %d"), static_cast<uint8>(Data->CharacterId));
+			HeadImage->SetBrushFromTexture(nullptr); // 기본값 or 공백 처리
+		}
 	}
 }
 

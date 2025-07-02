@@ -6,7 +6,7 @@
 #include "GRHpBarWidget.h"
 #include "Components/Button.h"
 #include "Components/ListView.h"
-#include "Game/GRTurnManager.h"
+#include "Game/GRTurnSystem.h"
 #include "Interface/GRCharacterWidgetInterface.h"
 
 void UGRDevelopHUDWidget:: SetPlayer1(AActor* NewPlayer)

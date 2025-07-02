@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GRTurnManager.h"
+#include "GRTurnSystem.h"
 #include "GameFramework/GameModeBase.h"
 #include "GrandiaGameMode.generated.h"
 
@@ -16,10 +16,12 @@ public:
 	AGrandiaGameMode();
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Turn, meta=(AllowPrivateAccess=true))
-	TObjectPtr<UGRTurnManager> TurnManager;
+	TObjectPtr<UGRTurnSystem> TurnSystem;
 
 protected:
 	virtual void BeginPlay() override;
+
+	
 };
 
 

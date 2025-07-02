@@ -50,7 +50,7 @@ void AGrandiaDevelopGameMode::BeginPlay()
 
 	TArray<UGRTurnInfo*> Infos {PlayerTurn, PlayerTurn2, EnemyTurn};
 
-	TurnManager->OnTurnListUpdated.AddLambda([](const TArray<UGRTurnInfo*>& TurnList)
+	TurnSystem->OnTurnListUpdated.AddLambda([](const TArray<UGRTurnInfo*>& TurnList)
 	{
 		UE_LOG(LogTemp, Log, TEXT("TurnCardList updated! Count: %d"), TurnList.Num());
 		for (int i = 0; i < TurnList.Num(); i++)
@@ -59,10 +59,10 @@ void AGrandiaDevelopGameMode::BeginPlay()
 		}
 	});
 
-	TurnManager->OnTurnBegin.AddLambda([](const int32 UnitId)
+	TurnSystem->OnTurnBegin.AddLambda([](const int32 UnitId)
 	{
 		UE_LOG(LogTemp, Log, TEXT("OnTurnBegin : %d"), UnitId);
 	});
 	
-	TurnManager->Initialize(Infos);
+	TurnSystem->Initialize(Infos);
 }
